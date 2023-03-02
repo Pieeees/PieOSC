@@ -1,0 +1,1573 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>vrcosclib</name>
+    </assembly>
+    <members>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterChangedEventHandler">
+            <summary>
+            Represents a delegate for handling changes to an <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter"/>.
+            </summary>
+            <param name="parameter">The <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter"/> that has changed.</param>
+            <param name="e">The <see cref="T:BuildSoft.VRChat.Osc.ValueChangedEventArgs"/> containing the old and new values.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatar">
+            <summary>
+            Represents a VRChat avatar, as identified by its unique ID.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatar.Id">
+            <summary>
+            The unique ID of the avatar.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatar.ToConfig">
+            <summary>
+            Converts the avatar to an <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> object.
+            </summary>
+            <returns>
+            An <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> object representing the avatar,
+            or null if the avatar does not have a valid ID.
+            </returns>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig">
+            <summary>
+            Represents the configuration of a VRChat avatar, including its unique ID, name, and a list of avatar parameters.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig._id">
+            <summary>
+            The unique ID of the avatar.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig._name">
+            <summary>
+            The name of the avatar.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig._parametersList">
+            <summary>
+            The list of avatar parameters.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.Id">
+            <summary>
+            Gets the unique ID of the avatar.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.Name">
+            <summary>
+            Gets the name of the avatar.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.Parameters">
+            <summary>
+            Gets the list of avatar parameters.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.IsCreatedParameters">
+            <summary>
+            Gets a value indicating whether the avatar parameters have been created.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.Extra">
+            <summary>
+            Gets any additional information that was not explicitly defined in the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> class, but was present in the avatar configuration file.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.#ctor(System.String,System.String,System.Collections.Generic.IEnumerable{BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter})">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> class with the specified avatar ID, name, and parameters.
+            </summary>
+            <param name="id">The unique ID of the avatar.</param>
+            <param name="name">The name of the avatar.</param>
+            <param name="parameters">The avatar parameters.</param>
+            <exception cref="T:System.ArgumentException">
+            <paramref name="id"/> is empty.
+            or
+            <paramref name="name"/> is empty.
+            </exception>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.CreateAll">
+            <summary>
+            Creates an array of all <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> instances in the current directory.
+            </summary>
+            <returns>An array of all <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> instances in the current directory.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.CreateAtCurrent">
+            <summary>
+            Creates an instance of <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> from the currently active avatar.
+            </summary>
+            <returns>An instance of <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> from the currently active avatar, or <see langword="null"/> if no avatar is active.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.Create(System.String)">
+            <summary>
+            Creates an instance of <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> with the specified ID.
+            </summary>
+            <param name="avatarId">The ID of the avatar to create.</param>
+            <returns>An instance of <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> with the specified ID, or <see langword="null"/> if no avatar with the specified ID exists.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.WaitAndCreateAtCurrentAsync">
+            <summary>
+            Asynchronously waits until the current avatar is received, and creates the avatar config.
+            </summary>
+            <returns>The <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> object that was deserialized.</returns>
+            <exception cref="T:Newtonsoft.Json.JsonSerializationException">Thrown if deserialization of the avatar configuration file fails.</exception>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig.GetAvatarConfig(System.String)">
+            <summary>
+            Deserializes the avatar configuration file at the specified path.
+            </summary>
+            <param name="path">The path of the avatar configuration file to deserialize.</param>
+            <returns>The <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig"/> object that was deserialized, or <see langword="null"/> if deserialization failed.</returns>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter">
+            <summary>
+            The model of an avatar parameter.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter._name">
+            <summary>
+            Gets the name of the parameter.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter._input">
+            <summary>
+            Gets the input interface for the parameter.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter._output">
+            <summary>
+            Gets the output interface for the parameter.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter.Name">
+            <summary>
+            Gets the name of the parameter.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter.Input">
+            <summary>
+            Gets the input interface for the parameter.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter.Output">
+            <summary>
+            Gets the output interface for the parameter.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter.ReadableAddress">
+            <summary>
+            Gets the readable address for the parameter.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter"/> class.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter.#ctor(System.String,BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface,BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter"/> class.
+            </summary>
+            <param name="name">The name of the parameter.</param>
+            <param name="input">The input interface for the parameter.</param>
+            <param name="output">The output interface for the parameter.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface">
+            <summary>
+            This class provides an interface for Open Sound Control (OSC) messages to avatar parameter.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface._address">
+            <summary>
+            Gets the address of the parameter interface.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface._addressBlob">
+            <summary>
+            Gets the blob string for the address of the parameter interface.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface._type">
+            <summary>
+            Gets the OSC type of the parameter interface.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface.Address">
+            <summary>
+            Gets the address of the parameter interface.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface.AddressBlob">
+            <summary>
+            Gets the blob string for the address of the parameter interface.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface.OscType">
+            <summary>
+            Gets the OSC type of the parameter interface.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface.Type">
+            <summary>
+            Gets the OSC type of the parameter interface as a string.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface"/> class.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface.#ctor(System.String,BuildSoft.VRChat.Osc.OscType)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParameterInterface"/> class.
+            </summary>
+            <param name="address">The address of the parameter interface.</param>
+            <param name="type">The OSC type of the parameter interface.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer">
+            <summary>
+            This class represents a container for avatar parameters in VRChat.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Initialize">
+            <summary>
+            Call initializer of dependencies.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.#cctor">
+            <summary>
+            Initialize static members.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.#ctor(System.Collections.Immutable.ImmutableArray{BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter})">
+            <summary>
+            Creates a new instance of <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer"/> with the specified avatar parameters.
+            </summary>
+            <param name="parameters">The avatar parameters to be contained in this instance.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.#ctor(System.Collections.Generic.IEnumerable{BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter})">
+            <summary>
+            Creates a new instance of <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer"/> with the specified avatar parameters.
+            </summary>
+            <param name="parameters">The avatar parameters to be contained in this instance.</param>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Items">
+            <summary>
+            Gets the avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Get(System.String)">
+            <summary>
+            Gets the avatar parameter with the specified name.
+            </summary>
+            <param name="name">The name of the avatar parameter to retrieve.</param>
+            <returns>The avatar parameter with the specified name.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.TryGet(System.String)">
+            <summary>
+            Attempts to retrieve the avatar parameter with the specified name.
+            </summary>
+            <param name="name">The name of the avatar parameter to retrieve.</param>
+            <returns>The avatar parameter with the specified name, if it exists; otherwise, null.</returns>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.UniqueParameters">
+            <summary>
+            Gets a collection of the unique avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.UniqueParameterValues">
+            <summary>
+            Gets a collection of the values of the unique avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Names">
+            <summary>
+            Gets a collection of the names of the avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Keys">
+            <summary>
+            Gets a collection of the keys (i.e., names) of the avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Values">
+            <summary>
+            Gets a collection of the values of the avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Count">
+            <summary>
+            Gets the number of avatar parameters contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.PhysBones">
+            <summary>
+            Gets a <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscPhysBone"/> contained in this instance.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.Item(System.String)">
+            <summary>
+            Gets or sets the value of the avatar parameter with the specified name.
+            </summary>
+            <param name="name">The name of the avatar parameter whose value to get or set.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.GetAs``1(System.String)">
+            <summary>
+            Gets the value of the avatar parameter with the specified name as the specified type.
+            </summary>
+            <typeparam name="T">The type to retrieve the avatar parameter value as.</typeparam>
+            <param name="name">The name of the avatar parameter whose value to retrieve.</param>
+            <returns>The value of the avatar parameter as the specified type.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.SetAs``1(System.String,``0)">
+            <summary>
+            Sets the value of the avatar parameter with the specified name to the specified value.
+            </summary>
+            <typeparam name="T">The type of the value to set the avatar parameter to.</typeparam>
+            <param name="name">The name of the avatar parameter whose value to set.</param>
+            <param name="value">The value to set the avatar parameter to.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.ContainsKey(System.String)">
+            <summary>
+            Determines whether this instance contains an avatar parameter with the specified name.
+            </summary>
+            <param name="key">The name of the avatar parameter to locate in this instance.</param>
+            <returns><see langword="true"/> if this instance contains an avatar parameter with the specified name; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.TryGetValue(System.String,System.Object@)">
+            <summary>
+            Tries to get the value of the avatar parameter with the specified name.
+            </summary>
+            <param name="key">The name of the avatar parameter whose value to get.</param>
+            <param name="value">When this method returns, contains the value of the avatar parameter with the specified name, if found;
+            otherwise, the default value for the type of the <paramref name="value"/> parameter.</param>
+            <returns><see langword="true"/> if the avatar parameter with the specified name is found; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.GetValueCallback(BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection,BuildSoft.VRChat.Osc.ParameterChangedEventArgs)">
+            <summary>
+            Callback method that is called when the value of an avatar parameter changes.
+            </summary>
+            <param name="sender">The object that raised the event.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="E:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.ParameterChanged">
+            <summary>
+            Occurs when the value of an avatar parameter contained in this instance changes.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.OnParameterChanged(BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter,BuildSoft.VRChat.Osc.ValueChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.ParameterChanged"/> event.
+            </summary>
+            <param name="param">The avatar parameter whose value changed.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscPhysBone">
+            <summary>
+            Represents a VRCPhysBone in an avatar.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.ParamName">
+            <summary>
+            Gets the name of the parameter that represents this VRCPhysBone.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.IsGrabbed">
+            <summary>
+            Gets a value indicating whether this VRCPhysBone is grabbed.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.Angle">
+            <summary>
+            Gets the angle of this VRCPhysBone.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.Stretch">
+            <summary>
+            Gets the stretch of this VRCPhysBone.
+            </summary>
+        </member>
+        <member name="E:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.ParameterChanged">
+            <summary>
+            Occurs when a parameter of this VRCPhysBone changes.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.#ctor(BuildSoft.VRChat.Osc.Avatar.OscAvatarConfig,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscPhysBone"/> class with the specified avatar and parameter name.
+            </summary>
+            <param name="avatar">The avatar that the VRCPhysBone belongs to.</param>
+            <param name="paramName">The name of the parameter that represents this VRCPhysBone.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.#ctor(BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscPhysBone"/> class with the specified parameter container and parameter name.
+            </summary>
+            <param name="parameters">The parameter container that the VRCPhysBone belongs to.</param>
+            <param name="paramName">The name of the parameter that represents this VRCPhysBone.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.#ctor(BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer,System.String,System.Boolean,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscPhysBone"/> class with the specified parameter container and parameter name.
+            </summary>
+            <param name="parameters">The parameter container that the VRCPhysBone belongs to.</param>
+            <param name="paramName">The name of the parameter that represents this VRCPhysBone.</param>
+            <param name="needCheck">Indicates whether to check if the specified parameter exists in the parameter container.</param>
+            <param name="checkedParamName">The name of the parameter to include in the exception message if the check fails.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.ThrowArgumentException_IfNotExistParameters(BuildSoft.VRChat.Osc.Avatar.OscAvatarParametorContainer,System.String,System.ValueTuple{System.String,BuildSoft.VRChat.Osc.OscType}[],System.String)">
+            <summary>
+            Throws an <see cref="T:System.ArgumentException"/> if the specified parameter does not exist in the parameter container.
+            </summary>
+            <param name="parameters">The parameter container to check for the specified parameter.</param>
+            <param name="paramName">The name of the parameter to check for.</param>
+            <param name="actualParam">An array of tuples containing the names and types of the expected parameters.</param>
+            <param name="checkedParamName">The name of the parameter to include in the exception message if the check fails.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.GetValueCallback(BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection,BuildSoft.VRChat.Osc.ParameterChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.ParameterChanged"/> event when a value in the parameter collection changes.
+            </summary>
+            <param name="sender">The parameter collection that raised the event.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.OnParameterChanged(BuildSoft.VRChat.Osc.Avatar.OscAvatarParameter,BuildSoft.VRChat.Osc.ValueChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.ParameterChanged"/> event with the specified parameter and event data.
+            </summary>
+            <param name="param">The parameter that changed.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscPhysBone.GetParameterValue``1(System.String)">
+            <summary>
+            Gets the value of the specified parameter as the specified type.
+            </summary>
+            <typeparam name="T">The type of the parameter value to get.</typeparam>
+            <param name="name">The name of the parameter to get the value of.</param>
+            <returns>The value of the parameter, or <see langword="null"/> if the parameter does not exist or is not of the specified type.</returns>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility">
+            <summary>
+            A utility class for interacting with VRChat avatars using the OSC protocol.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility._commonParameters">
+            <summary>
+            A list of common avatar parameters.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.CommonParameters">
+            <summary>
+            Gets a dictionary of common avatar parameters and their current values.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.CommonParameterNames">
+            <summary>
+            Enumerates common avatar parameters.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.CurrentAvatar">
+            <summary>
+            Gets the current <see cref="T:BuildSoft.VRChat.Osc.Avatar.OscAvatar"/>.
+            </summary>
+        </member>
+        <member name="E:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.AvatarChanged">
+            <summary>
+            Event that is raised when the current avatar changes.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.Initialize">
+            <summary>
+            Initializes the OSC avatar system.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.IsCommonParameter(System.String)">
+            <summary>
+            Determines whether the specified parameter is a common parameter for VRChat avatars.
+            </summary>
+            <param name="paramName">The name of the parameter to check.</param>
+            <returns>true if the parameter is common; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.GetCommonParameterValue(System.String)">
+            <summary>
+            Gets the value of the specified common parameter for the current avatar.
+            </summary>
+            <param name="paramName">The name of the parameter to get the value of.</param>
+            <returns>The value of the specified parameter, or null if the parameter does not exist or is not common.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Avatar.OscAvatarUtility.GetCommonParameterValues">
+            <summary>
+            Gets the values of all common parameters for the current avatar.
+            </summary>
+            <returns>An enumerable containing the values of all common parameters for the current avatar.</returns>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Chatbox.OscChatbox">
+            <summary>
+            Provides methods for sending messages and typing notifications to the VRChat chatbox.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Chatbox.OscChatbox.InputAddress">
+            <summary>
+            The OSC address for sending chatbox input messages.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Chatbox.OscChatbox.TypingAddress">
+            <summary>
+            The OSC address for sending typing notifications.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Chatbox.OscChatbox.SendMessage(System.String,System.Boolean,System.Boolean)">
+            <summary>
+            Sends a message to the VRChat chatbox.
+            </summary>
+            <param name="message">The message to send.</param>
+            <param name="direct">Indicates whether the message shows in direct or UI.</param>
+            <param name="complete">Indicates whether the message uses to trigger the notification SFX.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Chatbox.OscChatbox.SetIsTyping(System.Boolean)">
+            <summary>
+            Sends a typing notification to the VRChat chatbox.
+            </summary>
+            <param name="isTyping">Indicates whether the user is typing or not typing.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Chatbox.OscChatbox.WriteUtfString(BuildSoft.OscCore.OscWriter,System.String)">
+            <summary>
+            Writes the specified string in UTF-8 encoding to the OSC message.
+            </summary>
+            <param name="writer">The OSC message writer to write the string to.</param>
+            <param name="data">The string to write.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection">
+            <summary>
+            Represents a read-only collection of OSC parameters.
+            </summary>
+        </member>
+        <member name="E:BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection.ValueChanged">
+            <summary>
+            Occurs when a value in the collection changes.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection.AddValueChangedEventByAddress(System.String,BuildSoft.VRChat.Osc.OscParameterChangedEventHandler{BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection})">
+            <summary>
+            Adds an event handler to the collection that is invoked when the value of the parameter with the specified OSC address changes.
+            </summary>
+            <param name="address">The OSC address of the parameter to listen for value changes on.</param>
+            <param name="handler">The event handler to add.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection.RemoveValueChangedEventByAddress(System.String,BuildSoft.VRChat.Osc.OscParameterChangedEventHandler{BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection})">
+            <summary>
+            Removes an event handler to the collection that is invoked when the value of the parameter with the specified OSC address changes.
+            </summary>
+            <param name="address">The OSC address of the parameter to listen for value changes on.</param>
+            <param name="handler">The event handler to remove.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscParameterCollection">
+            <summary>
+            A collection of OSC parameters that can be accessed using a string address.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.Item(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.Keys">
+            <inheritdoc/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.Values">
+            <inheritdoc/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.Count">
+            <inheritdoc/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.IsReadOnly">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.Add(System.String,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.Add(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.Clear">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.Contains(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.ContainsKey(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.Remove(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.TryGetValue(System.String,System.Object@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.System#Collections#Generic#IReadOnlyDictionary{System#String,System#Object}#Keys">
+            <inheritdoc/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameterCollection.System#Collections#Generic#IReadOnlyDictionary{System#String,System#Object}#Values">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#CopyTo(System.Collections.Generic.KeyValuePair{System.String,System.Object}[],System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.System#Collections#Generic#ICollection{System#Collections#Generic#KeyValuePair{System#String,System#Object}}#Remove(System.Collections.Generic.KeyValuePair{System.String,System.Object})">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.System#Collections#IEnumerable#GetEnumerator">
+            <inheritdoc/>
+        </member>
+        <member name="E:BuildSoft.VRChat.Osc.OscParameterCollection.ValueChanged">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.OnValueChanged(BuildSoft.VRChat.Osc.ParameterChangedEventArgs)">
+            <summary>
+            Raises the <see cref="E:BuildSoft.VRChat.Osc.OscParameterCollection.ValueChanged"/> event and invokes the event handlers registered by address.
+            </summary>
+            <param name="args">The event data.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.OnValueChangedByAddress(BuildSoft.VRChat.Osc.ParameterChangedEventArgs)">
+            <summary>
+            Invokes the event handlers registered by address for the <see cref="E:BuildSoft.VRChat.Osc.OscParameterCollection.ValueChanged"/> event.
+            </summary>
+            <param name="args">The event data.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.AddValueChangedEventByAddress(System.String,BuildSoft.VRChat.Osc.OscParameterChangedEventHandler{BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection})">
+            <inheritdoc/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameterCollection.RemoveValueChangedEventByAddress(System.String,BuildSoft.VRChat.Osc.OscParameterChangedEventHandler{BuildSoft.VRChat.Osc.IReadOnlyOscParameterCollection})">
+            <inheritdoc/>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Delegate.EventDelegateExtension">
+            <summary>
+            Extension methods for <see cref="T:System.Delegate"/>.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Delegate.EventDelegateExtension.DynamicInvokeAllWithoutException``1(``0,System.Object[])">
+            <summary>
+            Invokes all of the methods in the specified delegate, catching any exceptions that are thrown.
+            </summary>
+            <typeparam name="T">The type of the delegate.</typeparam>
+            <param name="delegate">The delegate to invoke.</param>
+            <param name="args">The arguments to pass to the delegate methods.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscParameterChangedEventHandler`1">
+            <summary>
+            Represents a delegate that handles OSC parameter change events.
+            </summary>
+            <typeparam name="TSender">The type of the sender of the event.</typeparam>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscValueChangedEventHandler`2">
+            <summary>
+            Represents a delegate that handles value change events.
+            </summary>
+            <typeparam name="TSender">The type of the sender of the event.</typeparam>
+            <typeparam name="T">The type of the value that was changed.</typeparam>
+            <param name="sender">The sender of the event.</param>
+            <param name="e">The event data.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.ValueChangedEventArgs`1">
+            <summary>
+            Provides data for value change events.
+            </summary>
+            <typeparam name="T">The type of the value that was changed.</typeparam>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.ValueChangedEventArgs`1.OldValue">
+            <summary>
+            Gets the old value.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.ValueChangedEventArgs`1.NewValue">
+            <summary>
+            Gets the new value.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.ValueChangedEventArgs`1.#ctor(`0,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.ValueChangedEventArgs`1"/> class.
+            </summary>
+            <param name="oldValue">The old value.</param>
+            <param name="newValue">The new value.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.ParameterChangedEventArgs">
+            <summary>
+            Provides data for OSC parameter change events.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.ParameterChangedEventArgs.Address">
+            <summary>
+            Gets the address of the OSC parameter that was changed.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.ParameterChangedEventArgs.#ctor(System.Object,System.Object,System.String,BuildSoft.VRChat.Osc.ValueChangedReason)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.ParameterChangedEventArgs"/> class.
+            </summary>
+            <param name="oldValue">The old value of the OSC parameter.</param>
+            <param name="newValue">The new value of the OSC parameter.</param>
+            <param name="address">The address of the OSC parameter.</param>
+            <param name="reason">The reason for the change in the OSC parameter's value.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.ValueChangedEventArgs">
+            <summary>
+            Provides data for value change events.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.ValueChangedEventArgs.OldValue">
+            <summary>
+            Gets the old value.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.ValueChangedEventArgs.NewValue">
+            <summary>
+            Gets the new value.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.ValueChangedEventArgs.Reason">
+            <summary>
+            Gets the reason for the change in value.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.ValueChangedEventArgs.#ctor(System.Object,System.Object,BuildSoft.VRChat.Osc.ValueChangedReason)">
+            <summary>
+            Initializes a new instance of the <see cref="T:BuildSoft.VRChat.Osc.ValueChangedEventArgs"/> class.
+            </summary>
+            <param name="oldValue">The old value.</param>
+            <param name="newValue">The new value.</param>
+            <param name="reason">The reason for the change in the value.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.ValueChangedReason">
+            <summary>
+            Specifies the reason for a change in the value.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.ValueChangedReason.Added">
+            <summary>
+            The value was added.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.ValueChangedReason.Removed">
+            <summary>
+            The value was removed.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.ValueChangedReason.Substituted">
+            <summary>
+            The value was substituted.
+            </summary>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Input.OscAxisInput">
+            <summary>
+            Specifies the type of OSC axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.Vertical">
+            <summary>
+            The vertical axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.Horizontal">
+            <summary>
+            The horizontal axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.LookHorizontal">
+            <summary>
+            The horizontal look axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.LookVertical">
+            <summary>
+            The vertical look axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.UseAxisRight">
+            <summary>
+            The right use axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.GrabAxisRight">
+            <summary>
+            The right grab axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.MoveHoldFB">
+            <summary>
+            The forward/backward move-hold axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.SpinHoldCwCcw">
+            <summary>
+            The clockwise/counterclockwise spin-hold axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.SpinHoldUD">
+            <summary>
+            The up/down spin-hold axis input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscAxisInput.SpinHoldLR">
+            <summary>
+            The left/right spin-hold axis input.
+            </summary>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Input.OscButtonInput">
+            <summary>
+            Specifies the type of OSC button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.MoveForward">
+            <summary>
+            The move forward button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.MoveBackward">
+            <summary>
+            The move backward button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.MoveLeft">
+            <summary>
+            The move left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.MoveRight">
+            <summary>
+            The move right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.LookLeft">
+            <summary>
+            The look left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.LookRight">
+            <summary>
+            The look right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.LookDown">
+            <summary>
+            The look down button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.LookUp">
+            <summary>
+            The look up button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.Jump">
+            <summary>
+            The jump button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.Run">
+            <summary>
+            The run button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.Back">
+            <summary>
+            The back button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.Menu">
+            <summary>
+            The menu button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.ComfortLeft">
+            <summary>
+            The comfort left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.ComfortRight">
+            <summary>
+            The comfort right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.DropRight">
+            <summary>
+            The drop right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.UseRight">
+            <summary>
+            The use right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.GrabRight">
+            <summary>
+            The grab right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.DropLeft">
+            <summary>
+            The drop left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.UseLeft">
+            <summary>
+            The use left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.GrabLeft">
+            <summary>
+            The grab left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.PanicButton">
+            <summary>
+            The panic button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.QuickMenuToggleLeft">
+            <summary>
+            The quick menu toggle left button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.QuickMenuToggleRight">
+            <summary>
+            The quick menu toggle right button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.ToggleSitStand">
+            <summary>
+            The toggle sit/stand button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.AFKToggle">
+            <summary>
+            The AFK toggle button input.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscButtonInput.Voice">
+            <summary>
+            The voice button input.
+            </summary>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Input.OscInput">
+            <summary>
+            Provides a way to manipulate input controls with OSC.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscInput._axisInputAddressCache">
+            <summary>
+            A cache of OSC addresses for <see cref="T:BuildSoft.VRChat.Osc.Input.OscAxisInput"/> values.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscInput._buttonInputAddressCache">
+            <summary>
+            A cache of OSC addresses for <see cref="T:BuildSoft.VRChat.Osc.Input.OscButtonInput"/> values.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscInput._activeButtonInputs">
+            <summary>
+            The active button inputs.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Input.OscInput._activeAxisInputs">
+            <summary>
+            The active axis inputs.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.Send(BuildSoft.VRChat.Osc.Input.OscButtonInput,System.Boolean)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.VRChat.Osc.Input.OscButtonInput"/> content.
+            </summary>
+            <param name="content">The OSC button input content.</param>
+            <param name="isOn">A value indicating whether the button is being pressed (<see langword="true"/>) or released (<see langword="false"/>).</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.Press(BuildSoft.VRChat.Osc.Input.OscButtonInput)">
+            <summary>
+            Sends an OSC message to press the specified <see cref="T:BuildSoft.VRChat.Osc.Input.OscButtonInput"/>.
+            </summary>
+            <param name="content">The OSC button input to press.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.Release(BuildSoft.VRChat.Osc.Input.OscButtonInput)">
+            <summary>
+            Sends an OSC message to release the specified <see cref="T:BuildSoft.VRChat.Osc.Input.OscButtonInput"/>.
+            </summary>
+            <param name="content">The OSC button input to release.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.Send(BuildSoft.VRChat.Osc.Input.OscAxisInput,System.Single)">
+            <summary>
+            Sends the specified value to the OSC address associated with the specified <see cref="T:BuildSoft.VRChat.Osc.Input.OscAxisInput"/> content.
+            The value will be clamped between -1 and 1.
+            </summary>
+            <param name="content">The axis input to send the value for.</param>
+            <param name="value">The value to send. This will be clamped between -1 and 1.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.CreateAddress(BuildSoft.VRChat.Osc.Input.OscButtonInput)">
+            <summary>
+            Gets the OSC address associated with the specified <see cref="T:BuildSoft.VRChat.Osc.Input.OscButtonInput"/> content.
+            </summary>
+            <param name="content">The button input to get the OSC address for.</param>
+            <returns>The OSC address associated with the specified button input.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.CreateAddress(BuildSoft.VRChat.Osc.Input.OscAxisInput)">
+            <summary>
+            Gets the OSC address associated with the specified <see cref="T:BuildSoft.VRChat.Osc.Input.OscAxisInput"/> content.
+            </summary>
+            <param name="content">The axis input to get the OSC address for.</param>
+            <returns>The OSC address associated with the specified axis input.</returns>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Input.OscInput.ActiveButtonInputs">
+            <summary>
+            Gets the active button inputs.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Input.OscInput.ActiveAxisInputs">
+            <summary>
+            Gets the active axis inputs.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Input.OscInput.CreateActiveFields``1">
+            <summary>
+            Creates a collection of active fields of the specified type.
+            </summary>
+            <typeparam name="T">The type of the fields to retrieve. Must be an enumeration type.</typeparam>
+            <returns>A collection of active fields of the specified type.</returns>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscType">
+            <summary>
+            An enumeration of OSC types.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscType.Bool">
+            <summary>
+            The OSC type for a boolean value.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscType.Int">
+            <summary>
+            The OSC type for an integer value.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscType.Float">
+            <summary>
+            The OSC type for a floating-point value.
+            </summary>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Tracking.OscTracker">
+            <summary>
+            Provides an OSC tracker
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Tracking.OscTracker.SupportedTrackerCount">
+            <summary>
+            The number of supported trackers.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Tracking.OscTracker.PositionAddress">
+            <summary>
+            The OSC address for the position of the tracker.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Tracking.OscTracker.RotationAddress">
+            <summary>
+            The OSC address for the rotation of the tracker.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Tracking.OscTracker.Position">
+            <summary>
+            Gets or sets the position of the tracker.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Tracking.OscTracker.Rotation">
+            <summary>
+            Gets or sets the rotation of the tracker.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Tracking.OscTracker.#ctor(System.Int32)">
+            <summary>
+            Create the OSC tracker.
+            </summary>
+            <param name="index">0 base index. (0 &#x2266; <paramref name="index"/> &lt; <see cref="F:BuildSoft.VRChat.Osc.Tracking.OscTracker.SupportedTrackerCount"/>)</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            <paramref name="index"/> is negative or greater than or equal to <see cref="F:BuildSoft.VRChat.Osc.Tracking.OscTracker.SupportedTrackerCount"/>.
+            (0 &#x2266; <paramref name="index"/> &lt; <see cref="F:BuildSoft.VRChat.Osc.Tracking.OscTracker.SupportedTrackerCount"/>)
+            </exception>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Tracking.OscTracker.#ctor(System.String)">
+            <summary>
+            Create the OSC tracker.
+            </summary>
+            <param name="part">The part of the OSC address for the tracker.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Tracking.OscTracking">
+            <summary>
+            Provide methods for interacting with OSC tracking.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Tracking.OscTracking._headTracker">
+            <summary>
+            The head tracker.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.Tracking.OscTracking._trackers">
+            <summary>
+            A lazy-initialized array of all trackers.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Tracking.OscTracking.HeadTracker">
+            <summary>
+            Gets the head tracker.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.Tracking.OscTracking.Trackers">
+            <summary>
+            Gets all trackers.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Tracking.OscTracking.CreateTrackers">
+            <summary>
+            Creates an array of all trackers.
+            </summary>
+            <returns>An array of all trackers.</returns>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.Utility.MathHelper">
+            <summary>
+            Provide various math utility methods.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.Utility.MathHelper.Clamp``1(``0,``0,``0)">
+            <summary>
+            Clamps a value between a minimum and a maximum.
+            </summary>
+            <typeparam name="T">The type of the value to clamp.</typeparam>
+            <param name="value">The value to clamp.</param>
+            <param name="min">The minimum value.</param>
+            <param name="max">The maximum value.</param>
+            <returns>The clamped value.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if <paramref name="min"/> is greater than <paramref name="max"/>.</exception>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscConnectionSettings">
+            <summary>
+            The settings for an OSC connection.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConnectionSettings._utilityInitialized">
+            <summary>
+            Indicates whether <see cref="T:BuildSoft.VRChat.Osc.OscUtility"/> has been initialized.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConnectionSettings._server">
+            <summary>
+            The OSC server used to receive messages.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConnectionSettings._client">
+            <summary>
+            The OSC client used to send messages.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscConnectionSettings.Server">
+            <summary>
+            Gets the OSC server used to receive messages.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscConnectionSettings.Client">
+            <summary>
+            Gets the OSC client used to send messages.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConnectionSettings._receivePort">
+            <summary>
+            The port number used to receive OSC messages.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscConnectionSettings.ReceivePort">
+            <summary>
+            Gets or sets the port number used to receive OSC messages.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the value is less than 0 or greater than 65535.</exception>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConnectionSettings._sendPort">
+            <summary>
+            The port number used to send OSC messages.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscConnectionSettings.SendPort">
+            <summary>
+            Gets or sets the port number used to send OSC messages.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException">Thrown when the value is less than 0 or greater than 65535.</exception>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConnectionSettings._vrcIPAddress">
+            <summary>
+            The IP address to VRChat client running.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscConnectionSettings.VrcIPAddress">
+            <summary>
+            Gets or sets the IP address of the VRChat client to send OSC messages to.
+            </summary>
+            <exception cref="T:System.FormatException">Thrown when the value cannot be parsed as an IP address.</exception>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscConnectionSettings.MonitorCallbacks">
+            <summary>
+            A list of callbacks to be invoked when an OSC message is received.
+            </summary>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscConst">
+            <summary>
+            A class containing constants used in the OSC communication.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConst.AvatarParameterAddressSpace">
+            <summary>
+            The address space for avatar parameter messages.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscConst.AvatarIdAddress">
+            <summary>
+            The address for avatar change messages.
+            </summary>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscParameter">
+            <summary>
+            Provides a way to get/set OSC parameters and parameter values.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscParameter.Parameters">
+            <summary>
+            A collection of OSC parameters.
+            </summary>
+        </member>
+        <member name="E:BuildSoft.VRChat.Osc.OscParameter.ValueChanged">
+            <summary>
+            An event that is raised when the value of an OSC parameter is changed.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.Initialize">
+            <summary>
+            Initializes the OSC parameter system.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.ReceiveMessage(BlobHandles.BlobString,BuildSoft.OscCore.OscMessageValues)">
+            <summary>
+            Handles an incoming OSC message by updating the corresponding OSC parameter in the <see cref="P:BuildSoft.VRChat.Osc.OscParameter.Parameters"/> collection.
+            </summary>
+            <param name="address">The address of the OSC message.</param>
+            <param name="values">The values contained in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.GetValueAsVector3(System.String)">
+            <summary>
+            Gets the value of an OSC parameter as a <see cref="T:BuildSoft.OscCore.UnityObjects.Vector3"/>.
+            </summary>
+            <param name="address">The address of the OSC parameter.</param>
+            <returns>The value of the OSC parameter as a <see cref="T:BuildSoft.OscCore.UnityObjects.Vector3"/>, or <see langword="null"/> if the value cannot be converted to a <see cref="T:BuildSoft.OscCore.UnityObjects.Vector3"/>.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.GetValue(System.String)">
+            <summary>
+            Gets the value of an OSC parameter.
+            </summary>
+            <param name="address">The address of the OSC parameter.</param>
+            <returns>The value of the OSC parameter, or <see langword="null"/> if the parameter does not exist.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Single)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Single"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Int32)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Int32"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Boolean)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Boolean"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.String)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.String"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Double)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Double"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Int64)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Int64"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,BuildSoft.OscCore.UnityObjects.Vector2)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.UnityObjects.Vector2"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,BuildSoft.OscCore.UnityObjects.Vector3)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.UnityObjects.Vector3"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,BuildSoft.OscCore.UnityObjects.Color32)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.UnityObjects.Color32"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,BuildSoft.OscCore.MidiMessage)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.MidiMessage"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Byte[])">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Byte"/>[] value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Char)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Char"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendAvatarParameter(System.String,System.Object)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Object"/> value to the specified OSC address.
+            </summary>
+            <param name="name">The name of the OSC parameter.</param>
+            <param name="value">The value of the OSC parameter.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Single)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Single"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Int32)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Int32"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Boolean)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Boolean"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.String)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.String"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Double)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Double"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Int64)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Int64"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,BuildSoft.OscCore.UnityObjects.Vector2)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.UnityObjects.Vector2"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,BuildSoft.OscCore.UnityObjects.Vector3)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.UnityObjects.Vector3"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,BuildSoft.OscCore.UnityObjects.Color32)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.UnityObjects.Color32"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,BuildSoft.OscCore.MidiMessage)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:BuildSoft.OscCore.MidiMessage"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Byte[])">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Byte"/>[] value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscParameter.SendValue(System.String,System.Char)">
+            <summary>
+            Sends an OSC message with the specified <see cref="T:System.Char"/> value to the specified OSC address.
+            </summary>
+            <param name="address">The OSC address to send the message to.</param>
+            <param name="value">The value to send in the OSC message.</param>
+        </member>
+        <member name="T:BuildSoft.VRChat.Osc.OscUtility">
+            <summary>
+            Provides basic functionality about OSC.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.GetCurrentOscAvatarConfigPath">
+            <summary>
+            Gets the file path of the configuration file for the currently selected avatar.
+            </summary>
+            <returns>The file path of the configuration file for the currently selected avatar, or <see langword="null"/> if no avatar is selected.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.WaitAndGetCurrentOscAvatarConfigPathAsync(System.Threading.CancellationToken)">
+            <summary>
+            Asynchronously waits for an avatar to be selected and then gets the file path of the configuration file for the currently selected avatar.
+            </summary>
+            <param name="token">A <see cref="T:System.Threading.CancellationToken"/> that can be used to cancel the operation.</param>
+            <returns>The file path of the configuration file for the currently selected avatar.</returns>
+            <exception cref="T:System.Threading.Tasks.TaskCanceledException">The operation was cancelled.</exception>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.GetOscAvatarConfigPath(System.String)">
+            <summary>
+            Gets the file path for the avatar configuration file with the specified avatar ID.
+            If the avatar configuration file is not found, a <see cref="T:System.IO.FileNotFoundException"/> is thrown.
+            </summary>
+            <param name="avatarId">The avatar ID for the avatar configuration file to be retrieved.</param>
+            <returns>The file path for the avatar configuration file with the specified avatar ID.</returns>
+            <exception cref="T:System.IO.FileNotFoundException">Throws if the avatar configuration file is not found.</exception>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.GetOscAvatarConfigPathes">
+            <summary>
+            Gets the paths to all OSC avatar config files.
+            </summary>
+            <returns>An immutable array of strings representing the paths to the OSC avatar config files.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.EnumerateOscAvatarConfigPathes">
+            <summary>
+            Enumerates the paths to all OSC avatar config files.
+            </summary>
+            <returns>An enumerable collection of strings representing the paths to the OSC avatar config files.</returns>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscUtility.Server">
+            <inheritdoc cref="P:BuildSoft.VRChat.Osc.OscConnectionSettings.Server"/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscUtility.Client">
+            <inheritdoc cref="P:BuildSoft.VRChat.Osc.OscConnectionSettings.Client"/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscUtility.ReceivePort">
+            <inheritdoc cref="P:BuildSoft.VRChat.Osc.OscConnectionSettings.ReceivePort"/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscUtility.SendPort">
+            <inheritdoc cref="P:BuildSoft.VRChat.Osc.OscConnectionSettings.SendPort"/>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscUtility.VrcIPAddress">
+            <inheritdoc cref="P:BuildSoft.VRChat.Osc.OscConnectionSettings.VrcIPAddress"/>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.RegisterMonitorCallback(BuildSoft.OscCore.MonitorCallback)">
+            <summary>
+            Registers a monitor callback with the OSC server and adds it to the list of monitor callbacks.
+            </summary>
+            <param name="callback">The callback to register and add to the list of monitor callbacks.</param>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.UnregisterMonitorCallback(BuildSoft.OscCore.MonitorCallback)">
+            <summary>
+            Unregisters a monitor callback from the OSC server and removes it from the list of monitor callbacks.
+            </summary>
+            <param name="callback">The callback to unregister and remove from the list of monitor callbacks.</param>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscUtility.UserProfile">
+            <summary>
+            The path to the user's profile directory.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscUtility.VRChatAppDataPath">
+            <summary>
+            The path to the VRChat AppData directory.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscUtility.VRChatOscPath">
+            <summary>
+            The path to the VRChat OSC directory.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.VRChat.Osc.OscUtility._initializationExceptions">
+            <summary>
+            A list of exceptions that were thrown during the initialization of the OSC utility.
+            </summary>
+        </member>
+        <member name="P:BuildSoft.VRChat.Osc.OscUtility.IsFailedAutoInitialization">
+            <summary>
+            Indicates whether the OSC utility failed to initialize automatically.
+            </summary>
+            <returns><see langword="true"/> if the OSC utility failed to initialize automatically, otherwise <see langword="false"/>.</returns>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.Initialize">
+            <summary>
+            Initializes the OSC utility.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.ReadValue(BuildSoft.OscCore.OscMessageValues,System.Int32)">
+            <summary>
+            Reads a value from the specified index in an OSC message values object.
+            </summary>
+            <param name="value">The OSC message values object to read from.</param>
+            <param name="index">The index of the value to read.</param>
+            <returns>The value at the specified index in the OSC message values object, or null if the value is a nil type tag.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if the type tag at the specified index is an array start or array end type tag.</exception>
+        </member>
+        <member name="M:BuildSoft.VRChat.Osc.OscUtility.AreEqual(System.Object,System.Object)">
+            <summary>
+            Determines whether the specified objects are equal.
+            </summary>
+            <param name="left">The first object to compare.</param>
+            <param name="right">The second object to compare.</param>
+            <returns><see langword="true"/> if the specified objects are equal, otherwise <see langword="false"/>.</returns>
+        </member>
+    </members>
+</doc>

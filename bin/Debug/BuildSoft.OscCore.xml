@@ -1,0 +1,801 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BuildSoft.OscCore</name>
+    </assembly>
+    <members>
+        <member name="T:BuildSoft.OscCore.TypeTag">
+            <summary>
+            type tags from http://opensoundcontrol.org/spec-1_0 
+            </summary>
+        </member>
+        <member name="T:BuildSoft.OscCore.OscMessageValues">
+            <summary>
+            Represents the tags and values associated with a received OSC message
+            </summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadAsciiCharElement(System.Int32)">
+            <summary>
+            Read a non-standard ascii char element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it does not have the 'c' type tag
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The character value if the element has the right type tag, default otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadBlobElement(System.Int32)">
+            <summary>
+            Read a blob element.
+            Checks the element type before reading, and throw <see cref="T:System.InvalidOperationException"/> if the element is not a blob.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The array copied blob contents into</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadBlobElement(System.Int32,System.Byte[]@,System.Int32)">
+            <summary>
+            Read a blob element.
+            Checks the element type before reading, and throw <see cref="T:System.InvalidOperationException"/> if the element is not a blob.
+            </summary>
+            <param name="index">The element index</param>
+            <param name="copyTo">
+            The array to copy blob contents into.
+            Will be resized if it lacks sufficient capacity
+            </param>
+            <param name="copyOffset">The index in the copyTo array to start copying at</param>
+            <returns>The size of the blob</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadBooleanElement(System.Int32)">
+            <summary>
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a boolean.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadColor32Element(System.Int32)">
+            <summary>
+            Read a single 32-bit RGBA color message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a color.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadColor32ElementUnchecked(System.Int32)">
+            <summary>
+            Read a single 32-bit RGBA color message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid Color32,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscMessageValues._tags">
+            <summary>
+            All type tags in the message.
+            All values past index >= ElementCount are junk data and should NEVER BE USED!
+            </summary>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscMessageValues._offsets">
+            <summary>
+            Indexes into the shared buffer associated with each message element
+            All values at index >= ElementCount are junk data and should NEVER BE USED!
+            </summary>
+        </member>
+        <member name="P:BuildSoft.OscCore.OscMessageValues.ElementCount">
+            <summary>The number of elements in the OSC Message</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ForEachElement(System.Action{System.Int32,BuildSoft.OscCore.TypeTag})">
+            <summary>Execute a method for every element in the message</summary>
+            <param name="elementAction">A method that takes in the index and type tag for an element</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.GetTypeTag(System.Int32)">
+            <summary>
+            Get a <see cref="T:BuildSoft.OscCore.TypeTag"/> corresponding to <paramref name="index"/>.
+            </summary>
+            <param name="index">Index of <see cref="T:BuildSoft.OscCore.TypeTag"/> you want to get</param>
+            <returns></returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadFloatElement(System.Int32)">
+            <summary>
+            Read a single 32-bit float message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a float.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadFloatElementUnchecked(System.Int32)">
+            <summary>
+            Read a single 32-bit float message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid float,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadFloat64Element(System.Int32)">
+            <summary>
+            Read a single 64-bit float (double) message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a double.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadFloat64ElementUnchecked(System.Int32)">
+            <summary>
+            Read a single 64-bit float (double) message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid double,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadIntElement(System.Int32)">
+            <summary>
+            Read a single 32-bit integer message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a integer.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadIntElementUnchecked(System.Int32)">
+            <summary>
+            Read a single 32-bit int message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid integer,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadInt64Element(System.Int32)">
+            <summary>
+            Read a single 64-bit integer (long) message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a long.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadInt64ElementUnchecked(System.Int32)">
+            <summary>
+            Read a single 64-bit integer (long) message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid long,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadMidiElement(System.Int32)">
+            <summary>
+            Read a single MIDI message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a MIDI message.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadMidiElementUnchecked(System.Int32)">
+            <summary>
+            Read a single MIDI message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid MIDI message,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadNilOrInfinitumElement(System.Int32)">
+            <summary>
+            Read a non-standard 'nil' or 'infinitum' tag, which has no value
+            </summary>
+            <param name="index">The element index</param>
+            <returns>True if the element's type tag is nil or infinitum, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadStringElement(System.Int32)">
+            <summary>
+            Read a single string message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a string.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadStringElementBytes(System.Int32,System.Byte[])">
+            <summary>
+            Read a single string message element as bytes.
+            </summary>
+            <param name="index">The element index</param>
+            <param name="copyTo">The byte array to copy the string's bytes to</param>
+            <returns>The byte length of the string</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadStringElementBytes(System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Read a single string message element as bytes.
+            </summary>
+            <param name="index">The element index</param>
+            <param name="copyTo">The byte array to copy the string's bytes to</param>
+            <param name="copyOffset">The index in the copyTo array to start copying at</param>
+            <returns>The byte length of the string</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadTimestampElement(System.Int32)">
+            <summary>
+            Read a single NTP timestamp message element.
+            Checks the element type before reading and throw <see cref="T:System.InvalidOperationException"/> if it's not interpretable as a integer.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscMessageValues.ReadTimestampElementUnchecked(System.Int32)">
+            <summary>
+            Read a single NTP timestamp message element, without checking the type tag of the element.
+            Only call this if you are really sure that the element at the given index is a valid timestamp,
+            as the performance difference is small.
+            </summary>
+            <param name="index">The element index</param>
+            <returns>The value of the element</returns>
+        </member>
+        <member name="T:BuildSoft.OscCore.OscActionPair">
+            <summary>
+            A pair of methods associated with an OSC address
+            </summary>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscActionPair.ValueRead">
+            <summary>
+            A method executed immediately when the a message is received at the associated OSC address, on the server background thread.
+            All message values must be read during this callback, as the data it points to may be overwritten afterwards.
+            </summary>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscActionPair.MainThreadQueued">
+            <summary>
+            An optional method, which will be queued for execution on the main thread in the next frame after the message was received.
+            This is useful for UnityEvents and anything that needs a main thread only Unity api.
+            </summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscActionPair.Deconstruct(System.Action{BuildSoft.OscCore.OscMessageValues}@,System.Action@)">
+            <summary>
+            Deconstruct pair.
+            </summary>
+            <param name="valueRead">returns <see cref="F:BuildSoft.OscCore.OscActionPair.ValueRead"/></param>
+            <param name="mainThreadQueued">returns <see cref="F:BuildSoft.OscCore.OscActionPair.MainThreadQueued"/></param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscAddressSpace.TryMatchPatternHandler(System.String,System.Collections.Generic.List{BuildSoft.OscCore.OscActionPair})">
+            <summary>
+            Try to match an address against all known address patterns,
+            and add a handler for the address if a pattern is matched
+            </summary>
+            <param name="address">The address to match</param>
+            <param name="allMatchedMethods"></param>
+            <returns>True if a match was found, false otherwise</returns>
+        </member>
+        <member name="P:BuildSoft.OscCore.OscClient.Socket">
+            <summary>
+            The socket for sending messages
+            </summary>
+        </member>
+        <member name="P:BuildSoft.OscCore.OscClient.Writer">
+            <summary>Serializes outgoing messages</summary>
+        </member>
+        <member name="P:BuildSoft.OscCore.OscClient.Destination">
+            <summary>Where this client is sending messages to</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String)">
+            <summary>Send a message with no elements</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Int32)">
+            <summary>Send a message with a single 32-bit integer element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Single)">
+            <summary>Send a message with a single 32-bit float element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.String)">
+            <summary>Send a message with a single string element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Byte[],System.Int32,System.Int32)">
+            <summary>Send a message with a single blob element</summary>
+            <param name="address">The OSC address</param>
+            <param name="bytes">The bytes to copy from</param>
+            <param name="length">The number of bytes in the blob element</param>
+            <param name="start">The index in the bytes array to start copying from</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,BuildSoft.OscCore.UnityObjects.Vector2)">
+            <summary>Send a message with 2 32-bit float elements</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,BuildSoft.OscCore.UnityObjects.Vector3)">
+            <summary>Send a message with 3 32-bit float elements</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Double)">
+            <summary>Send a message with a single 64-bit float element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Int64)">
+            <summary>Send a message with a single 64-bit integer element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,BuildSoft.OscCore.UnityObjects.Color32)">
+            <summary>Send a message with a single 32-bit color element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,BuildSoft.OscCore.MidiMessage)">
+            <summary>Send a message with a single MIDI message element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Char)">
+            <summary>Send a message with a single ascii character element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.Send(System.String,System.Boolean)">
+            <summary>Send a message with a single True or False tag element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.SendNil(System.String)">
+            <summary>Send a message with a single Nil ('N') tag element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscClient.SendInfinitum(System.String)">
+            <summary>Send a message with a single Infinitum ('I') tag element</summary>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscParser.MessageValues">
+            <summary>
+            Holds all parsed values.  After calling Parse(), this should have data available to read
+            </summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.#ctor(System.Byte[])">
+            <summary>Create a new parser.</summary>
+            <param name="fixedBuffer">The buffer to read messages from.</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.#ctor(System.Int32)">
+            <summary>Create a new parser.</summary>
+            <param name="capacity">The capacity of buffer to read messages from.</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.Parse">
+            <summary>
+            Parse a single non-bundle message that starts at the beginning of the buffer
+            </summary>
+            <returns>The unaligned length of the message address</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.Parse(System.Int32)">
+            <summary>
+            Parse a single non-bundle message that starts at the given byte offset from the start of the buffer
+            </summary>
+            <returns>The unaligned length of the message address</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.ParseTags(System.Byte[],System.Int32)">
+            <returns> Size of tags in bytes, including ',' </returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.FindOffsets(System.Int32)">
+            <summary>Find the byte offsets for each element of the message</summary>
+            <param name="offset">The byte index of the first value</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscParser.IsBundleTagAtIndex(System.Int32)">
+            <summary>
+            Test if '#bundle ' is present at a given index in the buffer 
+            </summary>
+            <param name="index">The index in the buffer to test</param>
+            <returns>True if present, false otherwise</returns>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscServer.PortToServer">
+            <summary>
+            Map from port number to the server that handles incoming messages for it
+            </summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.GetOrCreate(System.Int32)">
+            <summary>
+            Get an existing OSC server on the given port, or create one if it doesn't exist.
+            </summary>
+            <param name="port">The port to listen for incoming message on</param>
+            <returns></returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.Remove(System.Int32)">
+            <summary>Dispose of an OSC Server</summary>
+            <param name="port">The port associated with the server</param>
+            <returns>True if the server was found and disposed of, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.TryAddMethod(System.String,System.Action{BuildSoft.OscCore.OscMessageValues})">
+            <summary>
+            Register a single background thread method for an OSC address
+            </summary>
+            <param name="address">The OSC address to handle messages for</param>
+            <param name="valueReadMethod">
+            The method to execute immediately on the worker thread that reads values from the message
+            </param>
+            <returns>True if the address was valid, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.RemoveMethod(System.String,System.Action{BuildSoft.OscCore.OscMessageValues})">
+            <summary>
+            Remove a single background thread method from an OSC address
+            </summary>
+            <param name="address">The OSC address to handle messages for</param>
+            <param name="valueReadMethod">
+            The method to execute immediately on the worker thread that reads values from the message
+            </param>
+            <returns>True if the method was removed from this address, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.RemoveAddress(System.String)">
+            <summary>Remove an address and all its methods from the server's address space</summary>
+            <param name="address">The OSC address to handle messages for</param>
+            <returns>True if the method address was found and removed, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.TryAddMethodPair(System.String,BuildSoft.OscCore.OscActionPair)">
+            <summary>
+            Add a background thread read callback and main thread callback associated with an OSC address.
+            </summary>
+            <param name="address">The OSC address to associate a method with</param>
+            <param name="actionPair">The pair of callbacks to add</param>
+            <returns>True if the address was valid and methods associated with it, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.TryAddMethodPair(System.String,System.Action{BuildSoft.OscCore.OscMessageValues},System.Action)">
+            <summary>
+            Add a background thread read callback and main thread callback associated with an OSC address.
+            </summary>
+            <param name="address">The OSC address to associate a method with</param>
+            <param name="read"></param>
+            <param name="mainThread"></param>
+            <returns>True if the address was valid and methods associated with it, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.RemoveMethodPair(System.String,BuildSoft.OscCore.OscActionPair)">
+            <summary>
+            Remove a background thread read callback and main thread callback associated with an OSC address.
+            </summary>
+            <param name="address">The OSC address to remove methods from</param>
+            <param name="actionPair">The pair of callbacks to remove</param>
+            <returns>True if successfully removed, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.AddMonitorCallback(BuildSoft.OscCore.MonitorCallback)">
+            <summary>
+            Add a method to be invoked every time an OSC message is received. If there are any monitor callbacks added,
+            memory has to be allocated for every message received, so it's recommended to only do this while editing.
+            </summary>
+            <param name="callback">The method to invoke</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.RemoveMonitorCallback(BuildSoft.OscCore.MonitorCallback)">
+            <summary>Remove a monitor method</summary>
+            <param name="callback">The method to remove</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.Update">
+            <summary>Must be called on the main thread every frame to handle queued events</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscServer.ParseBuffer(System.Int32)">
+            <summary>
+            Parse a single OSC message that's been copied into the start of the buffer.
+            Bundled messages can contain multiple elements
+            </summary>
+            <param name="byteLength">The length of the received message</param>
+        </member>
+        <member name="P:BuildSoft.OscCore.OscWriter.Length">
+            <summary>The number of bytes currently written to the buffer</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.Int32)">
+            <summary>Write a 32-bit integer element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.Single)">
+            <summary>Write a 32-bit floating point element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(BuildSoft.OscCore.UnityObjects.Vector2)">
+            <summary>Write a 2D vector as two float elements</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(BuildSoft.OscCore.UnityObjects.Vector3)">
+            <summary>Write a 3D vector as three float elements</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.String)">
+            <summary>Write an ASCII string element. The string MUST be ASCII-encoded!</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(BlobHandles.BlobString)">
+            <summary>Write an ASCII string element. The string MUST be ASCII-encoded!</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>Write a blob element</summary>
+            <param name="bytes">The bytes to copy from</param>
+            <param name="length">The number of bytes in the blob element</param>
+            <param name="start">The index in the bytes array to start copying from</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.Int64)">
+            <summary>Write a 64-bit integer element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.Double)">
+            <summary>Write a 64-bit floating point element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(BuildSoft.OscCore.UnityObjects.Color32)">
+            <summary>Write a 32-bit RGBA color element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(BuildSoft.OscCore.MidiMessage)">
+            <summary>Write a MIDI message element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(MiniNtp.NtpTimestamp)">
+            <summary>Write a 64-bit NTP timestamp element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.Write(System.Char)">
+            <summary>Write a single ascii character element</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.WriteBundlePrefix">
+            <summary>Write '#bundle ' at the start of a bundled message</summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscWriter.WriteAddressAndTags(System.String,System.UInt32)">
+            <summary>
+            Combines Reset(), Write(address), and Write(tags) in a single function to reduce call overhead
+            </summary>
+            <param name="address">The OSC address to send to</param>
+            <param name="tags">4 bytes that represent up to 3 type tags</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.UnityObjects.Color32.ToString">
+            <summary>
+            Returns a nicely formatted string of this color.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.UnityObjects.Color32.ToString(System.String)">
+            <summary>
+            Returns a nicely formatted string of this color.
+            </summary>
+            <param name="format"></param>
+            <returns></returns>
+        </member>
+        <member name="T:BuildSoft.OscCore.OscAddressMethods">
+            <summary>Maps from OSC address to the delegates associated with it</summary>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscAddressMethods.HandleToValue">
+            <summary>
+            Map from the unmanaged representation of an OSC address to the delegates associated with it
+            </summary>
+        </member>
+        <member name="F:BuildSoft.OscCore.OscAddressMethods._sourceToBlob">
+            <summary>
+            Map from the source string of an OSC address to the unmanaged representation
+            </summary>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscAddressMethods.Add(System.String,BuildSoft.OscCore.OscActionPair)">
+            <summary>Adds a callback to be executed when a message is received at the address</summary>
+            <param name="address">The address to associate the method with</param>
+            <param name="callbacks">The method(s) to be invoked</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscAddressMethods.Add(System.String,System.Action{BuildSoft.OscCore.OscMessageValues})">
+            <summary>Adds a callback to be executed when a message is received at the address</summary>
+            <param name="address">The address to associate the method with</param>
+            <param name="callback">The method to be invoked</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscAddressMethods.Add(System.String,System.Collections.Generic.List{BuildSoft.OscCore.OscActionPair})">
+            <summary>Adds a list of callbacks to be executed when a message is received at the address</summary>
+            <param name="address">The address to associate the methods with</param>
+            <param name="callbacks">The methods to be invoked</param>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscAddressMethods.Remove(System.String,BuildSoft.OscCore.OscActionPair)">
+            <summary>Removes the callback at the specified address</summary>
+            <param name="address">The address to remove</param>
+            <param name="callbacks">The callback pair to remove</param>
+            <returns>true if the string was found and removed, false otherwise</returns>
+        </member>
+        <member name="M:BuildSoft.OscCore.OscAddressMethods.RemoveAddress(System.String)">
+            <summary>Removes the OSC address from the delegate map</summary>
+            <param name="address">The address to remove</param>
+            <returns>True if the address was found and removed, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleDictionaryMethods.TryGetValueFromBytes``1(System.Collections.Generic.Dictionary{BlobHandles.BlobHandle,``0},System.Byte*,System.Int32,``0@)">
+            <summary>
+            Try to find the value associated with a given chunk of bytes
+            </summary>
+            <param name="self">The dictionary to look in</param>
+            <param name="ptr">Pointer to the start of the bytes</param>
+            <param name="length">The number of bytes to read</param>
+            <param name="value">The output value</param>
+            <typeparam name="T">The dictionary value type</typeparam>
+            <returns>True if the value was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleDictionaryMethods.TryGetValueFromBytes``1(System.Collections.Generic.Dictionary{BlobHandles.BlobHandle,``0},System.Byte[],``0@)">
+            <summary>
+            Try to find the value associated with a given chunk of bytes
+            </summary>
+            <param name="self">The dictionary to look in</param>
+            <param name="bytes">The byte array to read from</param>
+            <param name="value">The output value</param>
+            <typeparam name="T">The dictionary value type</typeparam>
+            <returns>True if the value was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleDictionaryMethods.TryGetValueFromBytes``1(System.Collections.Generic.Dictionary{BlobHandles.BlobHandle,``0},System.Byte[],System.Int32,``0@)">
+            <summary>
+            Try to find the value associated with a given chunk of bytes
+            </summary>
+            <param name="self">The dictionary to look in</param>
+            <param name="bytes">The byte array to read from</param>
+            <param name="length">The number of bytes to read</param>
+            <param name="value">The output value</param>
+            <typeparam name="T">The dictionary value type</typeparam>
+            <returns>True if the value was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleDictionaryMethods.TryGetValueFromBytes``1(System.Collections.Generic.Dictionary{BlobHandles.BlobHandle,``0},System.Byte[],System.Int32,System.Int32,``0@)">
+            <summary>
+            Try to find the value associated with a given chunk of bytes.
+            No bounds checking is performed, so be certain that offset + length is within the byte array.
+            </summary>
+            <param name="self">The dictionary to look in</param>
+            <param name="bytes">The byte array to read from</param>
+            <param name="length">The number of bytes to read</param>
+            <param name="offset">The index in the byte array to start reading at</param>
+            <param name="value">The output value</param>
+            <typeparam name="T">The dictionary value type</typeparam>
+            <returns>True if the value was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleHashSetMethods.ContainsBlob``1(System.Collections.Generic.HashSet{BlobHandles.BlobHandle},System.Byte*,System.Int32)">
+            <summary>Determines whether the HashSet contains the specified sequence of bytes</summary>
+            <param name="self">The HashSet to look in</param>
+            <param name="ptr">Pointer to the start of the bytes</param>
+            <param name="length">The number of bytes to read</param>
+            <returns>True if the key was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleHashSetMethods.ContainsBlob``1(System.Collections.Generic.HashSet{BlobHandles.BlobHandle},System.Byte[])">
+            <summary>Determines whether the HashSet contains the specified sequence of bytes</summary>
+            <param name="self">The HashSet to look in</param>
+            <param name="bytes">The byte array to read from</param>
+            <returns>True if the key was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleHashSetMethods.ContainsBlob``1(System.Collections.Generic.HashSet{BlobHandles.BlobHandle},System.Byte[],System.Int32)">
+            <summary>
+            Determines whether the HashSet contains the specified sequence of bytes
+            No bounds checking is performed, so be certain that length is less than or equal to bytes.Length
+            </summary>
+            <param name="self">The HashSet to look in</param>
+            <param name="bytes">The byte array to read from</param>
+            <param name="length">The number of bytes to read</param>
+            <returns>True if the key was found, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobHandleHashSetMethods.ContainsBlob(System.Collections.Generic.HashSet{BlobHandles.BlobHandle},System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Determines whether the HashSet contains the specified sequence of bytes
+            No bounds checking is performed, so be certain that offset + length is within end of the byte array.
+            </summary>
+            <param name="self">The HashSet to look in</param>
+            <param name="bytes">The byte array to read from</param>
+            <param name="length">The number of bytes to read</param>
+            <param name="offset">The index in the byte array to start reading at</param>
+            <returns>True if the key was found, false otherwise</returns>
+        </member>
+        <member name="T:BlobHandles.BlobStringDictionary`1">
+            <summary>
+            Designed to allow efficient matching of strings received as bytes (such as from network or disk) to values.
+            </summary>
+            <typeparam name="T">The type to associate a string key with</typeparam>
+        </member>
+        <member name="M:BlobHandles.BlobStringDictionary`1.Add(System.String,`0)">
+            <summary>Converts a string into a BlobString and adds it and the value to the dictionary</summary>
+            <param name="str">The string to add</param>
+            <param name="value">The value to associate with the key</param>
+        </member>
+        <member name="M:BlobHandles.BlobStringDictionary`1.Add(BlobHandles.BlobString,`0)">
+            <summary>Adds a BlobString and its associated value to the dictionary</summary>
+            <param name="blobStr">The blob string to add</param>
+            <param name="value">The value to associate with the key</param>
+        </member>
+        <member name="M:BlobHandles.BlobStringDictionary`1.Remove(System.String)">
+            <summary>Removes the value with the specified key</summary>
+            <param name="str">The string to remove</param>
+            <returns>true if the string was found and removed, false otherwise</returns>
+        </member>
+        <member name="M:BlobHandles.BlobStringDictionary`1.Remove(BlobHandles.BlobString)">
+            <summary>Removes the value with the specified key</summary>
+            <param name="blobStr">The blob string to remove</param>
+            <returns>true if the string was found and removed, false otherwise</returns>
+        </member>
+        <member name="T:BlobHandles.BlobHandle">
+            <summary>
+            Wraps an arbitrary chunk of bytes in memory, so it can be used as a hash key
+            and compared against other instances of the same set of bytes 
+            </summary>
+        </member>
+        <member name="P:BlobHandles.BlobHandle.Pointer">
+            <summary>A pointer to the start of the blob</summary>
+        </member>
+        <member name="P:BlobHandles.BlobHandle.Reference">
+            <summary>A reference to the start of the blob</summary>
+        </member>
+        <member name="P:BlobHandles.BlobHandle.Length">
+            <summary>The number of bytes in the blob</summary>
+        </member>
+        <member name="M:BlobHandles.BlobHandle.#ctor(System.Byte[])">
+            <summary>
+            Get a blob handle for a byte array. The byte array should have its address pinned to work safely!
+            </summary>
+            <param name="bytes">The bytes to get a handle to</param>
+        </member>
+        <member name="M:BlobHandles.BlobHandle.#ctor(System.Byte[],System.Int32)">
+            <summary>
+            Get a blob handle for part of a byte array. The byte array should have its address pinned to work safely!
+            </summary>
+            <param name="bytes">The bytes to get a handle to</param>
+            <param name="length">The number of bytes to include. Not bounds checked</param>
+        </member>
+        <member name="M:BlobHandles.BlobHandle.#ctor(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Get a blob handle for a slice of a byte array. The byte array should have its address pinned to work safely!
+            </summary>
+            <param name="bytes">The bytes to get a handle to</param>
+            <param name="length">The number of bytes to include. Not bounds checked</param>
+            <param name="offset">The byte array index to start the blob at</param>
+        </member>
+        <member name="T:BlobHandles.BlobString">
+            <summary>
+            Represents a string as a fixed blob of bytes
+            </summary>
+        </member>
+        <member name="P:BlobHandles.BlobString.Encoding">
+            <summary>
+            The encoding used to convert to and from strings.
+            WARNING - Changing this after strings have been encoded will probably lead to errors!
+            </summary>
+        </member>
+        <member name="T:Unity.IL2CPP.CompilerServices.BlobHandles.Option">
+            <summary>
+            The code generation options available for IL to C++ conversion.
+            Enable or disabled these with caution.
+            </summary>
+        </member>
+        <member name="F:Unity.IL2CPP.CompilerServices.BlobHandles.Option.NullChecks">
+             <summary>
+             Enable or disable code generation for null checks.
+            
+             Global null check support is enabled by default when il2cpp.exe
+             is launched from the Unity editor.
+            
+             Disabling this will prevent NullReferenceException exceptions from
+             being thrown in generated code. In *most* cases, code that dereferences
+             a null pointer will crash then. Sometimes the point where the crash
+             happens is later than the location where the null reference check would
+             have been emitted though.
+             </summary>
+        </member>
+        <member name="F:Unity.IL2CPP.CompilerServices.BlobHandles.Option.ArrayBoundsChecks">
+             <summary>
+             Enable or disable code generation for array bounds checks.
+            
+             Global array bounds check support is enabled by default when il2cpp.exe
+             is launched from the Unity editor.
+            
+             Disabling this will prevent IndexOutOfRangeException exceptions from
+             being thrown in generated code. This will allow reading and writing to
+             memory outside of the bounds of an array without any runtime checks.
+             Disable this check with extreme caution.
+             </summary>
+        </member>
+        <member name="F:Unity.IL2CPP.CompilerServices.BlobHandles.Option.DivideByZeroChecks">
+             <summary>
+             Enable or disable code generation for divide by zero checks.
+            
+             Global divide by zero check support is disabled by default when il2cpp.exe
+             is launched from the Unity editor.
+            
+             Enabling this will cause DivideByZeroException exceptions to be
+             thrown in generated code. Most code doesn't need to handle this
+             exception, so it is probably safe to leave it disabled.
+             </summary>
+        </member>
+        <member name="T:Unity.IL2CPP.CompilerServices.BlobHandles.Il2CppSetOptionAttribute">
+             <summary>
+             Use this attribute on a class, method, or property to inform the IL2CPP code conversion utility to override the
+             global setting for one of a few different runtime checks.
+            
+             Example:
+            
+                 [Il2CppSetOption(Option.NullChecks, false)]
+                 public static string MethodWithNullChecksDisabled()
+                 {
+                     var tmp = new Object();
+                     return tmp.ToString();
+                 }
+             </summary>
+        </member>
+        <member name="T:MiniNtp.NtpTimestamp">
+            <summary>64-bit NTP timestamp as described in RFC-1305 and 5905</summary>
+        </member>
+        <member name="F:MiniNtp.NtpTimestamp.Seconds">
+            <summary>The number of seconds since the last epoch</summary>
+        </member>
+        <member name="F:MiniNtp.NtpTimestamp.Fractions">
+            <summary>Number of ~200 picosecond fractions of a second elapsed this second</summary>
+        </member>
+        <member name="M:MiniNtp.NtpTimestamp.FromBigEndianBytes(System.Byte[],System.Int32)">
+            <summary>Read a new timestamp from big-endian bytes</summary>
+            <param name="buffer">The array to read from</param>
+            <param name="offset">The index in the array to start reading from</param>
+        </member>
+        <member name="M:MiniNtp.NtpTimestamp.FromBigEndianBytes(System.Byte*)">
+            <summary>Read a new timestamp from big-endian bytes</summary>
+            <param name="tsPtr">Pointer to the timestamp to read</param>
+        </member>
+        <member name="M:MiniNtp.NtpTimestamp.FromBigEndianBytes(System.UInt32*)">
+            <summary>Read a new timestamp from big-endian bytes</summary>
+            <param name="tsPtr">Pointer to the timestamp to read</param>
+        </member>
+        <member name="M:MiniNtp.NtpTimestamp.ToBigEndianBytes(System.Byte[],System.Int32)">
+            <summary>Convert to big-endian byte order</summary>
+            <param name="bytes">The bytes to copy into</param>
+            <param name="offset">The index in the bytes to start writing at</param>
+        </member>
+        <member name="M:MiniNtp.NtpTimestamp.ToBigEndianBytes(System.UInt32*)">
+            <summary>Convert to big-endian byte order</summary>
+            <param name="writePtr">The pointer to start writing at</param>
+        </member>
+    </members>
+</doc>
