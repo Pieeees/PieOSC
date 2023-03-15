@@ -11,5 +11,8 @@ this project wont get any update or an autoupdater its just a test
 but there is a build ready to use with some simple features 
 there is also a customizable background template in the build
 
+## my discord server
+discord.gg/MSHCS8u7eJ
+
 ## uses the VRCOscLib from
 https://github.com/ChanyaVRC/VRCOscLib
