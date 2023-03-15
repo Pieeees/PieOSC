@@ -6,7 +6,7 @@ a OSC client for VRChat with simple features
 
 
 
-##information
+## information
 this project wont get any update or an autoupdater its just a test
 but there is a build ready to use with some simple features 
 there is also a customizable background template in the build
