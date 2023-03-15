@@ -15,6 +15,7 @@ using System.Threading;
 using System.Net;
 using System.Reflection;
 using System.IO;
+using BuildSoft.VRChat.Osc.Input;
 
 namespace vrchatOSC
 {
@@ -30,38 +31,6 @@ namespace vrchatOSC
         {
 
             OscChatbox.SendMessage("PieOSC Loaded", direct: true);
-            WebClient webclientupdate = new WebClient();
-            WebClient WebClient = new WebClient();
-            if (!webclientupdate.DownloadString("https://pastebin.com/raw/UTMfD7SA").Contains("0.4"))
-
-                if (MessageBox.Show("New Upate\nyou want to download it?", "New update", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
-                {
-                    WebClient auto = new WebClient();
-
-                    string file = WebClient.DownloadString("https://pastebin.com/raw/qqtDsLAt");
-                    WebClient.DownloadFile(file, "PieOSC.zip");
-                    Application.Exit();
-                    string batchCommands = string.Empty;
-                    string exeFileName = Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", string.Empty).Replace("/", "\\");
-
-                    batchCommands += "@ECHO OFF\n";
-                    batchCommands += "title Updating do not close or touch!!!\n";
-                    batchCommands += "timeout /T 3 /NOBREAK > nul\n";
-                    batchCommands += "echo j | del /F ";
-                    batchCommands += exeFileName + "\n";
-                    batchCommands += "tar -xf PieOSC.zip > nul\n";
-                    batchCommands += "del PieOSC.zip > nul\n";
-                    batchCommands += "echo j | del updater.bat > nul\n";
-
-                    File.WriteAllText("updater.bat", batchCommands);
-
-                    Process.Start("updater.bat");
-
-                }
-                else
-                {
-                    Application.Exit();
-                }
             try
             {
                 this.BackgroundImage = Image.FromFile("bg.png");
@@ -227,10 +196,11 @@ namespace vrchatOSC
                 timer3.Stop();
             }
         }
-
         private void timer3_Tick(object sender, EventArgs e)
         {
-            OscChatbox.SendMessage("PieOSC: System UpTime = " + "*"  + "* ", direct: true);
+            TimeSpan ts = TimeSpan.FromMilliseconds(Environment.TickCount);
+
+            OscChatbox.SendMessage("PieOSC: System UpTime =                     " + ts.Days + "D: " + ts.Hours+ "H: " + ts.Minutes+ "M:", direct: true);
         }
         private void checkBox5_CheckedChanged_1(object sender, EventArgs e)
         {
@@ -244,11 +214,18 @@ namespace vrchatOSC
                 timer4.Stop();
             }
         }
+        
+
+        public PerformanceCounter theMemCounter =
+   new PerformanceCounter("Memory", "Available MBytes");
+
+        public PerformanceCounter CPU =
+               new PerformanceCounter("Processor", "% Processor Time", "_Total");
 
         private void timer4_Tick(object sender, EventArgs e)
         {
-            
-            OscChatbox.SendMessage("PieOSC: System Usage = " + "CPU ", direct: true);
+            dynamic sc = CPU.NextValue();
+            OscChatbox.SendMessage("PieOSC: System Usage  " + "          CPU: " + (int)sc + "%    " + "Free RAM: " + this.theMemCounter.NextValue() + " MB", direct: true); ; ;
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -283,6 +260,46 @@ namespace vrchatOSC
         {
             string rtext = richTextBox1.Text;
             OscChatbox.SendMessage(rtext, direct: true);
+
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox7.Checked == true)
+            {
+                timer7.Start();
+            }
+            else
+            if (checkBox7.Checked == false)
+            {
+                timer7.Stop();
+            }
+        }
+
+        private void timer7_Tick(object sender, EventArgs e)
+        {
+            var procs = Process.GetProcessesByName("vrchat");
+            foreach (var proc in procs)
+            {
+                TimeSpan runtime;
+                try
+                {
+                    runtime = DateTime.Now - proc.StartTime;
+                }
+                catch (Win32Exception ex)
+                {
+                    if (ex.NativeErrorCode == 5)
+                        continue;
+                    throw;
+                }
+                OscChatbox.SendMessage("PieOSC: VRChat timer = " + runtime , direct: true);
+
+            }
+        }
+
+        private void timer6_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

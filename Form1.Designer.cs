@@ -64,6 +64,9 @@
             this.button12 = new System.Windows.Forms.Button();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.timer5 = new System.Windows.Forms.Timer(this.components);
+            this.timer6 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
+            this.timer7 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -154,7 +157,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Version: 0.5";
+            this.label1.Text = "Version: 0.6";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // bunifuDragControl2
@@ -190,7 +193,7 @@
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.checkBox1);
-            this.panel3.Location = new System.Drawing.Point(18, 17);
+            this.panel3.Location = new System.Drawing.Point(156, 122);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(436, 217);
             this.panel3.TabIndex = 0;
@@ -325,6 +328,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.panel5.Controls.Add(this.checkBox7);
             this.panel5.Controls.Add(this.checkBox5);
             this.panel5.Controls.Add(this.checkBox4);
             this.panel5.Controls.Add(this.checkBox3);
@@ -340,11 +344,11 @@
             this.checkBox5.AutoSize = true;
             this.checkBox5.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox5.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.checkBox5.Location = new System.Drawing.Point(7, 106);
+            this.checkBox5.Location = new System.Drawing.Point(9, 127);
             this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(119, 22);
+            this.checkBox5.Size = new System.Drawing.Size(72, 22);
             this.checkBox5.TabIndex = 4;
-            this.checkBox5.Text = "PC Info broken";
+            this.checkBox5.Text = "PC Info";
             this.checkBox5.UseVisualStyleBackColor = true;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged_1);
             // 
@@ -353,11 +357,11 @@
             this.checkBox4.AutoSize = true;
             this.checkBox4.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox4.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.checkBox4.Location = new System.Drawing.Point(7, 78);
+            this.checkBox4.Location = new System.Drawing.Point(9, 99);
             this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(119, 22);
+            this.checkBox4.Size = new System.Drawing.Size(95, 22);
             this.checkBox4.TabIndex = 3;
-            this.checkBox4.Text = "Uptime broken";
+            this.checkBox4.Text = "PC UpTime";
             this.checkBox4.UseVisualStyleBackColor = true;
             this.checkBox4.CheckedChanged += new System.EventHandler(this.checkBox4_CheckedChanged);
             // 
@@ -366,7 +370,7 @@
             this.checkBox3.AutoSize = true;
             this.checkBox3.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.checkBox3.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.checkBox3.Location = new System.Drawing.Point(9, 48);
+            this.checkBox3.Location = new System.Drawing.Point(9, 71);
             this.checkBox3.Name = "checkBox3";
             this.checkBox3.Size = new System.Drawing.Size(91, 22);
             this.checkBox3.TabIndex = 2;
@@ -394,17 +398,17 @@
             // 
             // timer2
             // 
-            this.timer2.Interval = 4000;
+            this.timer2.Interval = 6666;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // timer3
             // 
-            this.timer3.Interval = 4000;
+            this.timer3.Interval = 6666;
             this.timer3.Tick += new System.EventHandler(this.timer3_Tick);
             // 
             // timer4
             // 
-            this.timer4.Interval = 5000;
+            this.timer4.Interval = 6666;
             this.timer4.Tick += new System.EventHandler(this.timer4_Tick);
             // 
             // richTextBox1
@@ -458,8 +462,31 @@
             // 
             // timer5
             // 
-            this.timer5.Interval = 4000;
+            this.timer5.Interval = 6666;
             this.timer5.Tick += new System.EventHandler(this.timer5_Tick);
+            // 
+            // timer6
+            // 
+            this.timer6.Interval = 6666;
+            this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox7.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.checkBox7.Location = new System.Drawing.Point(9, 43);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(106, 22);
+            this.checkBox7.TabIndex = 5;
+            this.checkBox7.Text = "VRchat timer";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
+            // timer7
+            // 
+            this.timer7.Interval = 5600;
+            this.timer7.Tick += new System.EventHandler(this.timer7_Tick);
             // 
             // Form1
             // 
@@ -530,6 +557,9 @@
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.CheckBox checkBox6;
         private System.Windows.Forms.Timer timer5;
+        private System.Windows.Forms.Timer timer6;
+        private System.Windows.Forms.CheckBox checkBox7;
+        private System.Windows.Forms.Timer timer7;
     }
 }
 
