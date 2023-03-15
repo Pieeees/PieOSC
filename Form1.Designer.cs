@@ -51,6 +51,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.checkBox3 = new System.Windows.Forms.CheckBox();
@@ -65,7 +66,6 @@
             this.checkBox6 = new System.Windows.Forms.CheckBox();
             this.timer5 = new System.Windows.Forms.Timer(this.components);
             this.timer6 = new System.Windows.Forms.Timer(this.components);
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.timer7 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -157,7 +157,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Version: 0.6";
+            this.label1.Text = "Version: 0.7";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // bunifuDragControl2
@@ -193,7 +193,7 @@
             this.panel3.Controls.Add(this.button5);
             this.panel3.Controls.Add(this.panel4);
             this.panel3.Controls.Add(this.checkBox1);
-            this.panel3.Location = new System.Drawing.Point(156, 122);
+            this.panel3.Location = new System.Drawing.Point(15, 7);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(436, 217);
             this.panel3.TabIndex = 0;
@@ -339,6 +339,19 @@
             this.panel5.TabIndex = 2;
             this.panel5.Paint += new System.Windows.Forms.PaintEventHandler(this.panel5_Paint);
             // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox7.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.checkBox7.Location = new System.Drawing.Point(9, 43);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(106, 22);
+            this.checkBox7.TabIndex = 5;
+            this.checkBox7.Text = "VRchat timer";
+            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
             // checkBox5
             // 
             this.checkBox5.AutoSize = true;
@@ -469,19 +482,6 @@
             // 
             this.timer6.Interval = 6666;
             this.timer6.Tick += new System.EventHandler(this.timer6_Tick);
-            // 
-            // checkBox7
-            // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkBox7.ForeColor = System.Drawing.Color.WhiteSmoke;
-            this.checkBox7.Location = new System.Drawing.Point(9, 43);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(106, 22);
-            this.checkBox7.TabIndex = 5;
-            this.checkBox7.Text = "VRchat timer";
-            this.checkBox7.UseVisualStyleBackColor = true;
-            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
             // 
             // timer7
             // 
