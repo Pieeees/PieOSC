@@ -67,6 +67,8 @@
             this.timer5 = new System.Windows.Forms.Timer(this.components);
             this.timer6 = new System.Windows.Forms.Timer(this.components);
             this.timer7 = new System.Windows.Forms.Timer(this.components);
+            this.checkBox8 = new System.Windows.Forms.CheckBox();
+            this.timer8 = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -157,7 +159,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(110, 24);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Version: 0.7";
+            this.label1.Text = "Version: 0.8";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // bunifuDragControl2
@@ -328,6 +330,7 @@
             // panel5
             // 
             this.panel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(55)))), ((int)(((byte)(55)))), ((int)(((byte)(55)))));
+            this.panel5.Controls.Add(this.checkBox8);
             this.panel5.Controls.Add(this.checkBox7);
             this.panel5.Controls.Add(this.checkBox5);
             this.panel5.Controls.Add(this.checkBox4);
@@ -488,6 +491,24 @@
             this.timer7.Interval = 5600;
             this.timer7.Tick += new System.EventHandler(this.timer7_Tick);
             // 
+            // checkBox8
+            // 
+            this.checkBox8.AutoSize = true;
+            this.checkBox8.Font = new System.Drawing.Font("Microsoft Tai Le", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkBox8.ForeColor = System.Drawing.Color.WhiteSmoke;
+            this.checkBox8.Location = new System.Drawing.Point(9, 154);
+            this.checkBox8.Name = "checkBox8";
+            this.checkBox8.Size = new System.Drawing.Size(96, 22);
+            this.checkBox8.TabIndex = 6;
+            this.checkBox8.Text = "FPS broken";
+            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox8.CheckedChanged += new System.EventHandler(this.checkBox8_CheckedChanged);
+            // 
+            // timer8
+            // 
+            this.timer8.Interval = 6666;
+            this.timer8.Tick += new System.EventHandler(this.timer8_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -560,6 +581,8 @@
         private System.Windows.Forms.Timer timer6;
         private System.Windows.Forms.CheckBox checkBox7;
         private System.Windows.Forms.Timer timer7;
+        private System.Windows.Forms.CheckBox checkBox8;
+        private System.Windows.Forms.Timer timer8;
     }
 }
 

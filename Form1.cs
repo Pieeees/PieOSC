@@ -301,5 +301,24 @@ namespace vrchatOSC
         {
 
         }
+
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox8.Checked == true)
+            {
+                timer8.Start();
+            }
+            else
+            if (checkBox8.Checked == false)
+            {
+                timer8.Stop();
+            }
+        }
+
+        private void timer8_Tick(object sender, EventArgs e)
+        {
+
+            OscChatbox.SendMessage("PieOSC: FPS: ", direct: true);
+        }
     }
 }
